@@ -25,6 +25,10 @@ const Navbar = ({ setFormOpen }) => {
         <Menu.Item as={NavLink} to='/events' name='Events'>
           Events
         </Menu.Item>
+
+        <Menu.Item as={NavLink} to='/sandbox' name='sandbox'>
+          Sandbox
+        </Menu.Item>
         {authenticated && (
           <Menu.Item as={NavLink} to='/createEvent'>
             <Button
