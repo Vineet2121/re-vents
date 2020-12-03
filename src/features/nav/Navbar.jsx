@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Button, Container, Menu } from 'semantic-ui-react';
 import SignedInMenu from './SignedInMenu';
 import SignedOutMenu from './SignedOutMenu';
+import { useSelector } from 'react-redux';
 
 const Navbar = ({ setFormOpen }) => {
-  const history = useHistory();
-
-  const [authenticated, setAuthenticated] = useState(false);
-
-  const handleSignOut = () => {
-    setAuthenticated(false);
-    history.push('/');
-  };
+  const { authenticated } = useSelector((state) => state.auth);
 
   return (
     <Menu inverted fixed='top'>
@@ -32,7 +26,7 @@ const Navbar = ({ setFormOpen }) => {
         {authenticated && (
           <Menu.Item as={NavLink} to='/createEvent'>
             <Button
-              onClick={() => setFormOpen(true)}
+              // onClick={() => setFormOpen(true)}
               positive
               inverted
               content='Create Event'
@@ -40,11 +34,7 @@ const Navbar = ({ setFormOpen }) => {
           </Menu.Item>
         )}
 
-        {authenticated ? (
-          <SignedInMenu signOut={handleSignOut} />
-        ) : (
-          <SignedOutMenu setAuthenticated={setAuthenticated} />
-        )}
+        {authenticated ? <SignedInMenu /> : <SignedOutMenu />}
       </Container>
     </Menu>
   );
